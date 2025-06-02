@@ -1,0 +1,203 @@
+\ProvidesPackage{fmfi}[2025/06/01 FAKULTA MATEMATIKY, FYZIKY A INFORMATIKY]
+
+
+% ================================================================================
+% Packages
+% ================================================================================
+
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+\RequirePackage{amsthm}
+\RequirePackage{verbatim}
+\RequirePackage{hyperref}
+\RequirePackage{listings}
+
+
+% ================================================================================
+% Colors
+% ================================================================================
+
+\definecolor{fmfiWhite}			{HTML}{FFFFFF}
+\definecolor{fmfiPrimary}		{HTML}{D44513}
+\definecolor{fmfiGrey}			{HTML}{58595B}
+
+\setbeamercolor{maintitle}		{fg=fmfiWhite}
+\setbeamercolor{title}			{fg=fmfiPrimary}
+\setbeamercolor{author}			{fg=white}
+\setbeamercolor{date}			{fg=white}
+\setbeamercolor{institute}		{fg=white}
+\setbeamercolor{head}			{bg=fmfiWhite}
+
+\setbeamercolor{alerted text}	{fg=fmfiPrimary}
+\setbeamercolor{normal text}	{fg=darkgray, bg=white}
+\setbeamercolor{structure}		{fg=fmfiPrimary}
+
+\setbeamercolor{jumbo}			{bg=fmfiPrimary}
+
+\setbeamercolor{block title}	{use=structure, fg=white, bg=fmfiPrimary}
+\setbeamercolor{block body}		{use=structure, fg=darkgray, bg=fmfiPrimary!10}
+
+\hypersetup{
+	colorlinks,
+	linkcolor=fmfiPrimary,
+	anchorcolor=red,
+	citecolor=blue!80,
+	urlcolor=fmfiPrimary
+}
+
+
+% ================================================================================
+% Fonts
+% ================================================================================
+
+\setbeamerfont{maintitle}	{series=\bfseries, size=\fontsize{32}{28}\selectfont}
+\setbeamerfont{subtitle}	{series=\mdseries, size=\fontsize{14}{12}\selectfont}
+\setbeamerfont{title}		{series=\bfseries, size=\Large}
+
+\setbeamerfont{author}		{size=\small}
+\setbeamerfont{date}		{size=\footnotesize}
+\setbeamerfont{institute}	{size=\footnotesize}
+
+\setbeamerfont{alerted text}	{series=\bfseries}
+
+\setbeamerfont{frametitle}		{series=\bfseries}
+\setbeamerfont{framesubtitle}	{series=\mdseries}
+\setbeamerfont{footline}		{size=\scriptsize}
+\setbeamerfont{block title}		{size=\normalsize, series=\bfseries}
+\setbeamerfont{block body}		{size=\normalsize}
+
+\usefonttheme{serif}
+
+
+% ================================================================================
+% Settings
+% ================================================================================
+
+% Cancel navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Bullet points
+\setbeamertemplate{itemize item}		{\textbullet}
+\setbeamertemplate{itemize subitem}		{\textemdash}
+\setbeamertemplate{itemize subsubitem}	{\ensuremath{\circ}}
+
+% Paragraph spacing
+\setlength{\parskip}					{5pt}
+
+% Code environment
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{fmfiPrimary!50},
+    keywordstyle=\color{fmfiPrimary},
+    numberstyle=\tiny\color{fmfiGrey},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+}
+\lstset{style=mystyle}
+
+
+% ================================================================================
+% Slide Templates
+% ================================================================================
+
+% Headline for all frames
+\setbeamertemplate{headline}{
+	\ifnum\theframenumber=1
+		% not display the headline for the title page
+	\else
+		\begin{beamercolorbox}[wd=\paperwidth,ht=60pt]{head}
+			\hspace{380pt}\includegraphics[width=40pt]{source/image2.jpg}
+		\end{beamercolorbox}
+	\fi
+}
+
+% Frame title and subtitle
+\setbeamertemplate{frametitle}{
+    \begin{picture}(0,0)
+        \ifx\insertframesubtitle\@empty%
+            \put(0,27){\usebeamerfont{frametitle}\usebeamercolor[fg]{title}\insertframetitle}%
+		\else%
+			\put(0,32){\usebeamerfont{frametitle}\usebeamercolor[fg]{title} \insertframetitle}%
+			\put(0,20){\usebeamerfont{framesubtitle}\usebeamercolor[fg]{title} \insertframesubtitle }
+		\fi
+    \end{picture}
+}
+
+% Title page
+\setbeamertemplate{title page}{
+	\begin{picture}(0,0)
+		\put(-5,-150){
+			\begin{beamercolorbox}[wd=1.1\paperwidth,ht=1.1\paperheight]{jumbo}
+            \end{beamercolorbox}
+        }
+		\put(0,45){\includegraphics[width=100pt]{source/image1.png}}
+		\put(0,-25){%
+			\begin{minipage}{300pt}
+				\usebeamerfont{maintitle}\usebeamercolor[fg]{maintitle}\inserttitle\par
+				\vspace{5pt}
+				\usebeamerfont{subtitle}\usebeamercolor[fg]{maintitle}\insertsubtitle
+			\end{minipage}
+		}
+		\put(0,-95){%
+			\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor
+		}
+        \put(0,-105){%
+			\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute
+		}
+		\put(0,-115){%
+			\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate
+		}
+	\end{picture}
+}
+
+% last frame
+\newcommand{\backmatter}{
+	\begingroup
+	\setbeamertemplate{headline}{}
+	\setbeamertemplate{footline}{}
+	\begin{frame}[c]{}
+		\begin{picture}(0,0)
+			\put(-5,-150){
+				\begin{beamercolorbox}[wd=1.1\paperwidth,ht=1.1\paperheight]{jumbo}
+				\end{beamercolorbox}
+			}
+			\put(0,-25){%
+				\begin{minipage}{300pt}
+					\usebeamerfont{maintitle}\usebeamercolor[fg]{maintitle}\inserttitle\par
+				\end{minipage}
+			}			
+		\end{picture}
+	\end{frame}
+\endgroup
+}
+
+% Style of sections and subsections in ToCs
+\setbeamertemplate{section in toc}{
+	$\bullet$~\textbf{\inserttocsection}
+}
+\setbeamertemplate{subsection in toc}{}
+\setbeamertemplate{frametitle continuation}{}
+
+% Begin of sections
+\AtBeginSection[]
+{
+    \begingroup
+    \begin{frame}{Agenda}{}
+        \tableofcontents[currentsection]
+    \end{frame}
+    \endgroup
+}
